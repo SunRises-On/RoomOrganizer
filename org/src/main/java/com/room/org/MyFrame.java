@@ -12,15 +12,17 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 public class MyFrame extends JFrame implements ActionListener, ComponentListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton enterButton;
 	private JLabel headerLabel;
 	private GridBagConstraints c;
@@ -91,6 +93,7 @@ public class MyFrame extends JFrame implements ActionListener, ComponentListener
 		enterButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		//enterButton.setBackground(Color.ORANGE);
 		enterButton.setBackground(new Color(92, 184, 92));
+		enterButton.addActionListener(this);
 		//enterButton.setBackground(Color.decode("#00cd00"));
 		
 		
@@ -262,6 +265,16 @@ public class MyFrame extends JFrame implements ActionListener, ComponentListener
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		if( e.getSource() == enterButton) {
+			System.out.println("hello");
+		}
+		if( e.getSource()==enterButton) {
+			//
+			System.out.println("clicked");
+			Log log = new Log();
+			this.setContentPane(log);
+			this.revalidate();
+		}
 		
 	}
 /**
