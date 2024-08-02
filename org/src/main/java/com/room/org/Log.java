@@ -8,6 +8,7 @@ import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -55,6 +56,26 @@ public class Log extends JPanel implements ComponentListener{
 		System.out.println("height = " + height);
 		System.out.println("width = " + width);
 		
+		//find the ratio to y points to 1 x point
+		double ratio = height/width;
+		System.out.println("ratio = " + ratio);
+		if( height != 0 &&  width != 0) {
+			for(int i = 0; i < width ; i++) {
+				pointsX.add(i);
+				double temp = ratio * i;
+				int y = (int) temp;
+				if(y <= height) {
+					pointsY.add(y);
+				}else {
+					pointsY.add( (int)height);
+				}
+			}
+			//reverse pointsY
+			Collections.reverse(pointsY);
+			repaint();
+		}
+		System.out.println("X arraylist = " + pointsX.toString());
+		System.out.println("Y arraylist = " + pointsY.toString());
 		//first point
 		// x point
 		// 0
@@ -143,12 +164,22 @@ public class Log extends JPanel implements ComponentListener{
 		//enterButton.setBackground(Color.decode("#00cd00"));
 		g.setColor(Color.decode("#788dee"));
 		//
-		g.fillPolygon(new int[] {10,20,30}, new int[] {100,20,100}, 3);
+		
+		int[] arrayX = new int[pointsX.size()];
+		for(int i = 0; i< pointsX.size(); i++) arrayX[i] = pointsX.get(i);
+		int[] arrayY = new int[pointsY.size()];
+		for(int i = 0; i<pointsY.size(); i++) arrayY[i] = pointsY.get(i);
+		//g.fillPolygon(new int[] {10,20,30}, new int[] {100,20,100}, 3);
+		g.drawPolygon(arrayX, arrayY, arrayX.length);
+		g.setColor(Color.black);
+		g.fillPolygon(arrayX, arrayY, arrayX.length);
 		//g.fillRect(squareX, squareY,squareW,squareH);
 		//g.setColor(Color.BLACK);
 		//g.drawRect(squareX, squareY, squareW, squareH);
-		//g.drawP
-	}
+		//g.drawPolygon(arrayX, arrayY, arrayX.length);
+		//Polygon g = new
+		//g.fillPolygon()
+	}//
 	@Override
 	public void componentResized(ComponentEvent e) {
 		// TODO Auto-generated method stub
