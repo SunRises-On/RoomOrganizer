@@ -2,6 +2,7 @@ package com.room.org;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -22,7 +23,9 @@ public class Log extends JPanel implements ComponentListener{
 
 	Log(){
 		this.addComponentListener(this);
-
+		
+		this.setBackground( Color.decode("#ffffff"));
+		
 		label = new JLabel();
 		label.setText("Changed to another panel");
 		this.add(label);
@@ -36,11 +39,8 @@ public class Log extends JPanel implements ComponentListener{
 
 	}
 	private void setPoints(Dimension d) {
-		double height = d.getHeight();
-		double width = d.getWidth();
-		System.out.println("height = " + height);
-		System.out.println("width = " + width);
 		
+	
 		triangle = new Triangle(d);
 		
 		repaint();
@@ -135,6 +135,13 @@ public class Log extends JPanel implements ComponentListener{
 		polygon.lineTo( triangle.getXPoints()[3], triangle.getYPoints()[3]); // <- closes the polygon
 		
 		polygon.closePath();
+		// left side bottom is first point for the first color 
+		// right side bottom is the last point for the 2nd color 538aec
+		GradientPaint blueToPurple = new GradientPaint(
+				(int) triangle.getXPoints()[0], (int)triangle.getYPoints()[0], Color.decode("#538aec"),
+				(int) triangle.getXPoints()[2], (int)triangle.getYPoints()[2], Color.decode("#a08cec")
+				);
+		g2.setPaint(blueToPurple);
 		g2.fill(polygon);
 		g2.draw(polygon);
 		
