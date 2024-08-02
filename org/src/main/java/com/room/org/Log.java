@@ -3,10 +3,13 @@ package com.room.org;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -57,9 +60,12 @@ public class Log extends JPanel implements ComponentListener{
 		System.out.println("width = " + width);
 		
 		//find the ratio to y points to 1 x point
-		double ratio = height/width;
-		System.out.println("ratio = " + ratio);
 		if( height != 0 &&  width != 0) {
+			double ratio = height/width;
+			System.out.println("ratio = " + ratio);
+		//remove all elements from the arrayList
+			pointsX.clear();
+			pointsY.clear();
 			for(int i = 0; i < width ; i++) {
 				pointsX.add(i);
 				double temp = ratio * i;
@@ -70,7 +76,7 @@ public class Log extends JPanel implements ComponentListener{
 					pointsY.add( (int)height);
 				}
 			}
-			//reverse pointsY
+			//reverse pointsY because the y-axis starts at 0
 			Collections.reverse(pointsY);
 			repaint();
 		}
@@ -165,14 +171,82 @@ public class Log extends JPanel implements ComponentListener{
 		g.setColor(Color.decode("#788dee"));
 		//
 		
-		int[] arrayX = new int[pointsX.size()];
-		for(int i = 0; i< pointsX.size(); i++) arrayX[i] = pointsX.get(i);
-		int[] arrayY = new int[pointsY.size()];
-		for(int i = 0; i<pointsY.size(); i++) arrayY[i] = pointsY.get(i);
+		//int[] arrayX = new int[pointsX.size()];
+		//for(int i = 0; i< pointsX.size(); i++) arrayX[i] = pointsX.get(i);
+		//int[] arrayY = new int[pointsY.size()];
+		//for(int i = 0; i<pointsY.size(); i++) arrayY[i] = pointsY.get(i);
+		
+		Graphics2D g2 = (Graphics2D) g;
+		
+		g2.setRenderingHint(
+				RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON
+				);
+		Dimension d = this.getSize();
+		double height = d.getHeight();
+		double width = d.getWidth();
+		
+		
+		ArrayList<Double> x5 = new ArrayList<>();
+		ArrayList<Double> y5 = new ArrayList<>();
+		
+		if( height != 0 &&  width != 0) {
+			double ratio = height/width;
+			System.out.println("ratio = " + ratio);
+		//remove all elements from the arrayList
+			pointsX.clear();
+			pointsY.clear();
+			for(int i = 0; i < width ; i++) {
+				/***
+				 *  Add another point.
+				 *  This time it is a 1/2 point step.
+				 * 
+				 * ***/
+				/*
+				 * if( i < width-1) { double step = i + .05; double temp2 = ratio* step; x5.add(
+				 * (double)i);
+				 * 
+				 * if(temp2 > height) { y5.add(height); }else { y5.add(temp2); } }
+				 */
+				
+				
+				x5.add((double) i);
+				double temp = ratio * i;
+				if(temp > height) {
+					y5.add(height);
+				}else {
+					y5.add(temp);
+				}
+			}
+			//reverse pointsY because the y-axis starts at 0
+			Collections.reverse(y5);
+		}
+		double x1Points[] = new double[x5.size()];
+		double y1Points[] = new double[y5.size()];
+		
+		for(int i = 0; i< y5.size(); i++) y1Points[i]= y5.get(i);
+		for(int i = 0; i<x5.size(); i++) x1Points[i]=x5.get(i);
+		
+		
+		//GeneralPath 
+		GeneralPath polygon = new GeneralPath(GeneralPath.WIND_EVEN_ODD, x1Points.length);
+		polygon.moveTo(x1Points[0], y1Points[0]); //(0.0 , height ) (x,y)
+		polygon.lineTo(width, 0.0);              // (width, 0.0  ) <- makes diagonal line  /
+		polygon.lineTo(width, height);           // (width, height) <- makes straight down line
+		polygon.lineTo(0.0, height);              //(0.0, height)  <- closes the polygon
+	//	for(int index = 1; index< x1Points.length; index++) {
+	//		polygon.lineTo(x1Points[index], y1Points[index]);
+	//	};
+		polygon.closePath();
+		g2.fill(polygon);
+		g2.draw(polygon);
+		
+		
+		
 		//g.fillPolygon(new int[] {10,20,30}, new int[] {100,20,100}, 3);
-		g.drawPolygon(arrayX, arrayY, arrayX.length);
-		g.setColor(Color.black);
-		g.fillPolygon(arrayX, arrayY, arrayX.length);
+		//g.drawPolygon(arrayX, arrayY, arrayX.length);
+		//g.setColor(Color.black);
+		//g.fillPolygon(arrayX, arrayY, arrayX.length);
 		//g.fillRect(squareX, squareY,squareW,squareH);
 		//g.setColor(Color.BLACK);
 		//g.drawRect(squareX, squareY, squareW, squareH);
