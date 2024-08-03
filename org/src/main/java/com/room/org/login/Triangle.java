@@ -1,4 +1,4 @@
-package com.room.org;
+package com.room.org.login;
 
 import java.awt.Dimension;
 import java.awt.geom.Area;

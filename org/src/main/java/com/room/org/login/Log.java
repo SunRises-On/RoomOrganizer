@@ -1,4 +1,4 @@
-package com.room.org;
+package com.room.org.login;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,15 +17,43 @@ import java.util.Collections;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
 public class Log extends JPanel implements ComponentListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JLabel label ;
 	Triangle triangle;
-
-	Log(){
+	/*******************************************************
+	 *  
+	 *   Layer Name            Value               Description
+	 *   
+	 *  FRAME_CONTENT_LAYER  new Integer(-30000)  Bottom. This layer is used to position the frame's content pane and menu bar. Most programs won't use this.
+	 *  DEFAULT_LAYER       new Integer(0)        Most components go in this layer.
+	 *  PALETTE_LAYER       new Integer(100)      This layer is useful for floatting toolbars and palettes.
+	 *  MODAL_LAYER         new Integer(200)      Modal dialogs, such as those provided by JOptionPane, belong in this layer.
+	 *  POPUP_LAYER         new Integer(300)      Popups go in this layer because they need to appear above just about everything.
+	 *  DRAG_LAYER          new Integer(400)      Move a component to this layer when dragging. Return the component to its regular layer when dropped.
+	 *  
+	 *   You can set a component's position when you add it to a layered 
+	 *   pane by providing a third argument to the ad method. Positions
+	 *   are specified with an int between -1 and (N-1), where N is the
+	 *   number of components in the layer. Using -1 is the same as using
+	 *   N-1; it indicates the bottom-most position. Using 0 specifies that
+	 *   the component should be in the topmost position within its layer.
+	 *   As the following figure shows, with the expection of -1, a lower
+	 *   position number indicates a higher position within a layer.
+	 *   
+	 *   Component at position 0, f(x):((N=1) - 1) |=0. That component is at the topmost position within the layer
+	 *   Component at position 1, of N = 2, f(x):((N=2) - 1) |=0. That component is at the bottom most position w/in the layer.
+	 *   
+	 ************************************************************************************************************* */
+	public Log(){
+		//setSize(400,400);
 		this.addComponentListener(this);
 		
 		this.setBackground( Color.decode("#ffffff"));
-		
 		label = new JLabel();
 		label.setText("Changed to another panel");
 		this.add(label);
@@ -33,6 +61,9 @@ public class Log extends JPanel implements ComponentListener{
 		Dimension d = this.getSize();
 		triangle = new Triangle(d);
 		setPoints(d);
+		
+	//	this.setPreferredSize(new Dimension(400,400));
+		
 		//use layers to add dimensions
 		// but blur a button >-<
 		

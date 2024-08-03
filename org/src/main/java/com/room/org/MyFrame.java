@@ -1,8 +1,10 @@
 package com.room.org;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,6 +19,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import com.room.org.login.Log;
+import com.room.org.login.Login;
 
 public class MyFrame extends JFrame implements ActionListener, ComponentListener {
 	/**
@@ -271,8 +276,15 @@ public class MyFrame extends JFrame implements ActionListener, ComponentListener
 		if( e.getSource()==enterButton) {
 			//
 			System.out.println("clicked");
-			Log log = new Log();
-			this.setContentPane(log);
+			//Log log = new Log();
+			//login.setParentJFrame(this.);
+			
+			//this.setContentPane(log);
+			
+			Login login = new Login();
+			this.setLayout(new FlowLayout());
+			this.setContentPane(login);
+			
 			this.revalidate();
 		}
 		
