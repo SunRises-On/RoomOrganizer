@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class Log extends JPanel implements ComponentListener{
+public class Background extends JPanel implements ComponentListener{
 	/**
 	 * 
 	 */
@@ -49,7 +49,7 @@ public class Log extends JPanel implements ComponentListener{
 	 *   Component at position 1, of N = 2, f(x):((N=2) - 1) |=0. That component is at the bottom most position w/in the layer.
 	 *   
 	 ************************************************************************************************************* */
-	public Log(){
+	public Background(){
 		//setSize(400,400);
 		this.addComponentListener(this);
 		

@@ -20,7 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import com.room.org.login.Log;
+import com.room.org.login.Background;
 import com.room.org.login.Login;
 
 public class MyFrame extends JFrame implements ActionListener, ComponentListener {

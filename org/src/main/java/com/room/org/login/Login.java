@@ -26,21 +26,24 @@ import javax.swing.SwingUtilities;
  *  componentResized(ComponentEvent e) you can resize/ replace
  *  JComponent(s) to the desired Bounds.
  * 
+ *  Layouts like FlowLayout treat the component like one layer.
+ *  So the JLayeredPane has no layouts and stays that way. 
+ * 
  * 
  * **/
 public class Login  extends JLayeredPane implements ComponentListener{
-	private Log background;
+	private Background background;
+	private LoginPanel loginPanel;
 	private JLabel label;
 	private JPanel oval;
 	public Login() {
-		//this.setLayout(null);
-	//	this.setLayout(new FlowLayout(FlowLayout.CENTER)); <- FlowLayout will mess with different layers
+		
 		this.setPreferredSize(new Dimension(400,400));
 		//.setPreferredSize(new Dimension(400,400));
 		this.addComponentListener(this);
 		this.setVisible(true);
 		this.setBackground(Color.orange);
-		background = new Log();
+		background = new Background();
 		background.addComponentListener(this);
 		
 		background.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
@@ -49,11 +52,15 @@ public class Login  extends JLayeredPane implements ComponentListener{
 		//background.setBounds(new Rectangle(new Point(0,0), background.getPreferredSize()));
 		this.add(background, JLayeredPane.MODAL_LAYER);
 		
-		oval = new JPanel();
-		oval.setPreferredSize(new Dimension(100,200));
-		oval.setBounds(50, 50, 100, 200);
-		oval.setBackground(Color.pink);
-		this.add(oval, JLayeredPane.POPUP_LAYER);
+	//	oval = new JPanel();
+	//	oval.setPreferredSize(new Dimension(100,200));
+	//	oval.setBounds(50, 50, 100, 200);
+	//	oval.setBackground(Color.pink);
+		loginPanel = new LoginPanel();
+		loginPanel.addComponentListener(this);
+		loginPanel.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
+		loginPanel.setBounds(0, 0, this.getWidth(), this.getHeight());
+		this.add(loginPanel, JLayeredPane.POPUP_LAYER);
 		//.setSize(100,200);
 		
 		
@@ -69,6 +76,9 @@ public class Login  extends JLayeredPane implements ComponentListener{
 		background.setSize(w, h);
 		background.setBounds(0, 0 , w , h);
 		
+		loginPanel.setPreferredSize(new Dimension(w, h));
+		loginPanel.setSize(w, h);
+		loginPanel.setBounds(0, 0, w, h);
 	//	oval.setBounds(20,20,100,200);
 		
 	//	this.revalidate(); <- breaks it for some reason
@@ -81,7 +91,7 @@ public class Login  extends JLayeredPane implements ComponentListener{
 	//	background.setSize(w, h);
 	//	this.repaint();
 		System.out.println(this.getX() + " " + this.getY() + " " +this.getHeight() + " " +this.getWidth());
-		System.out.println(oval.getX() + " " + oval.getY() + " " +oval.getHeight() + " " +oval.getWidth());
+		System.out.println(loginPanel.getX() + " " + loginPanel.getY() + " " +loginPanel.getHeight() + " " +loginPanel.getWidth());
 		System.out.println(background.getX() + " " + background.getY() + " " +background.getHeight() + " " +background.getWidth());
 
 		
