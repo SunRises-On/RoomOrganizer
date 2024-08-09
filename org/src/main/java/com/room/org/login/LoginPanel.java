@@ -3,6 +3,7 @@ package com.room.org.login;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -11,14 +12,53 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.geom.RoundRectangle2D;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+// TODO: stop resizing so as the roundedRectangle looks nice
+// TODO: add insets and repaint different from wiindow size
 public class LoginPanel extends JPanel implements ComponentListener{
 	
 	private RoundedRectangle roundedRectangle;
+	private JPanel helperPanel;
+	private JLabel label;
+	private JButton button;
+	private LinkButton link;
 	public LoginPanel() {
 		super();
 		this.setOpaque(false);
+		//this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		helperPanel = new JPanel();
+		helperPanel.setOpaque(false);
+		helperPanel.setLayout(new BoxLayout(helperPanel, BoxLayout.PAGE_AXIS));
+		//	miniPanel = new JPanel();
+	//	miniPanel.setLayout(new BoxLayout(miniPanel, BoxLayout.PAGE_AXIS));//label
+		
+		// font = bold ... "Futura"
+		// like 20
+		label = new JLabel("Login");
+		
+		
+//		label.setFont(new Font("Arial", Font.ITALIC,20)); //set font of text
+
+		//text prompt
+		//1
+		
+		
+		//2
+		
+		//button
+		button = new JButton("LOGIN");
+		
+		//link
+		link = new LinkButton("Sign Up");
+		
+		helperPanel.add(label);
+		
+		helperPanel.add(button);
+		helperPanel.add(link);
+		this.add(helperPanel);
 		repaint();
 	}
 	public void paintComponent(Graphics g) {
@@ -54,8 +94,8 @@ public class LoginPanel extends JPanel implements ComponentListener{
 		
 		Color c = Color.BLACK;
 		g2.setPaint(c);
-		System.out.println( "width = " + width);
-		System.out.println(" height = " + height);
+	//	System.out.println( "width = " + width);
+	//	System.out.println(" height = " + height);
 		
 		Shape shape = new RoundRectangle2D.Double(x, y, width, height, arcWidth, arcHeight);
 	//	g2.setPaint(Color.black);
@@ -76,39 +116,6 @@ public class LoginPanel extends JPanel implements ComponentListener{
 		// make it reactive to 1/4 of the screen size
 		
 		
-		
-		
-//		//Text
-//		g.drawString("This is my custom Panel!", 10, 20);
-//		// color html code 788dee
-//		g.setColor(Color.decode("#788dee"));
-//		
-//		Graphics2D g2 = (Graphics2D) g;
-//		
-//		g2.setRenderingHint(
-//				RenderingHints.KEY_ANTIALIASING,
-//				RenderingHints.VALUE_ANTIALIAS_ON
-//				);
-//		Dimension d = this.getSize();
-//		triangle = new Triangle(d);
-//		
-//		GeneralPath polygon = new GeneralPath(GeneralPath.WIND_EVEN_ODD, triangle.getXPoints().length);
-//		
-//		polygon.moveTo( triangle.getXPoints()[0], triangle.getYPoints()[0]); // <- make starting point
-//		polygon.lineTo( triangle.getXPoints()[1], triangle.getYPoints()[1]); // <- makes diagonal line /
-//		polygon.lineTo( triangle.getXPoints()[2], triangle.getYPoints()[2]); // <- makes straight line down |
-//		polygon.lineTo( triangle.getXPoints()[3], triangle.getYPoints()[3]); // <- closes the polygon
-//		
-//		polygon.closePath();
-//		// left side bottom is first point for the first color 
-//		// right side bottom is the last point for the 2nd color 538aec
-//		GradientPaint blueToPurple = new GradientPaint(
-//				(int) triangle.getXPoints()[0], (int)triangle.getYPoints()[0], Color.decode("#538aec"),
-//				(int) triangle.getXPoints()[2], (int)triangle.getYPoints()[2], Color.decode("#a08cec")
-//				);
-//		g2.setPaint(blueToPurple);
-//		g2.fill(polygon);
-////		g2.draw(polygon);
 		
 		
 	}//

@@ -1,0 +1,47 @@
+Idea for encryption.
+Use a free service
+User puts in username and key
+Sends it out to the authentication service
+The key comes back 
+The textfile becomes unencrypted. 
+The gui loads up with the information
+from the textfile.
+
+For each user account generate a new access token for the 
+application when they successfully log into your service. 
+Your login service should be designed much like a login for a
+ website:
+
+The API should only allow a set number (say 5) bad login attempts
+ that reports back to the desktop client that the 
+ username/password do not match.
+The API should return a token affiliated with only that user when 
+the user successfully logs in.
+Use SSL and a localized hashing method to pass user passwords to
+ your API
+This auth token provided by your API will only work for the 
+individual account and as such should only allow the user to 
+perform operations to their individual account. So for instance,
+ if a user wants to perform an operation they must be able to 
+ provide a valid auth token in order to complete the action. Using
+  this method attackers will still be able to obtain an auth key, 
+  but that auth key will only be able to perform operations for the
+   account in which it is generated. It will not be able to 
+   perform operations on anyone else account. The idea here is to
+    let them mess with data but to keep the bad activity 
+    compartmentalized to one account.
+
+From there, if you do have generic API calls (say an image search)
+ that accesses data from multiple accounts make sure that you are
+  never returning or allowing for any account to access all the 
+ data in your system outright. Provide only a limited number of 
+records. In this case the system is still performing its job, 
+but at no point allows all the records in your system to be 
+accessed.
+
+I typically implement a service like this:
+
+User logs in and gets an auth token. I store said auth token in a database associated with that user.
+User calls web service with auth token. I lookup user account by the transmitted auth token and User ID (two forms of authentication) and use the discovered user account to perform all operations. I don't just assume the User ID is correct, it has to be the one the auth token authenticated against.
+If a user needs to perform a delicate operation like reset a password, my app opens a browser window or browser task in the app where the user can request and administer a reset. I can more-easily secure a web application than one on an unknown client.
+Using these methods you should be able to make a fully operational desktop application. There are outliers to this functionality, if you have any post them up in the comments and we can dive further into the problem and see if this solution can still work for you.
