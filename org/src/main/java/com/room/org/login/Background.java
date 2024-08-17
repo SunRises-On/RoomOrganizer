@@ -54,9 +54,7 @@ public class Background extends JPanel implements ComponentListener{
 		this.addComponentListener(this);
 		
 		this.setBackground( Color.decode("#ffffff"));
-		label = new JLabel();
-		label.setText("Changed to another panel");
-		this.add(label);
+		
 		
 		Dimension d = this.getSize();
 		triangle = new Triangle(d);
@@ -77,49 +75,7 @@ public class Background extends JPanel implements ComponentListener{
 		repaint();
 		//how do I get every point I need for each x point ???
 	}
-	/*********************
-	 *  Whenever a MouseEvent received, ti is forwarded
-	 *  to the moveSquare method, which updates the square's 
-	 *  coordinates and repaints the component in an intelligent
-	 *  manner. Note that by default, any code that is placed
-	 *  within these event handlers will be executed on the Event
-	 *  Dispatch Thread.
-	 *  
-	 *  But the most important change is the invocation of the repaint 
-	 *  method. This method is defined by java.awt.Component and is the 
-	 *  mechanism that allows you to programmatically repaint the surface
-	 *   of any given component. It has a no-arg version (which repaints 
-	 *   the entire component) and a multi-arg version (which repaints 
-	 *   only the specified area.) This area is also known as the clip.
-	 *    Invoking the multi-arg version of repaint takes a little extra 
-	 *    effort, but guarantees that your painting code will not waste
-	 *     cycles repainting areas of the screen that have not changed.
-	 *   
-	 *   Because we are manually setting the clip, our moveSquare method 
-	 *   invokes the repaint method not once, but twice. The first 
-	 *   invocation tells Swing to repaint the area of the component 
-	 *   where the square previously was (the inherited behavior uses the
-	 *    UI Delegate to fill that area with the current background
-	 *     color.) The second invocation paints the area of the component
-	 *      where the square currently is. An important point worth
-	 *       noting is that although we have invoked repaint twice in a 
-	 *       row in the same event handler, Swing is smart enough to take
-	 *        that information and repaint those sections of the screen
-	 *         all in one single paint operation. In other words, 
-	 *         Swing will not repaint the component twice in a row, even 
-	 *         if that is what the code appears to be doing.
-	 *   
-	 *  
-	 * */
-//	private void moveSquare(int x, int y) {
-//		int OFFSET = 1;
-//		if ((squareX!=x) || (squareY != y)) {
-//			repaint(squareX, squareY, squareW+OFFSET, squareH+OFFSET);
-//			squareX=x;
-//			squareY=y;
-//			repaint(squareX,squareY,squareW+OFFSET,squareH+OFFSET);
-//		}
-//	}
+
 	/**
 	 *  paintComponent - method is where all your custom 
 	 *  painting takes place. This method is defined by 
@@ -144,8 +100,6 @@ public class Background extends JPanel implements ComponentListener{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
-		//Text
-		g.drawString("This is my custom Panel!", 10, 20);
 		// color html code 788dee
 		g.setColor(Color.decode("#788dee"));
 		

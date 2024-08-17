@@ -23,11 +23,13 @@ public class LoginPanel extends JPanel implements ComponentListener{
 	private RoundedRectangle roundedRectangle;
 	private JPanel helperPanel;
 	private JLabel label;
-	private JButton button;
+	private JPanel button;
 	private LinkButton link;
 	public LoginPanel() {
 		super();
 		this.setOpaque(false);
+		Dimension d = this.getSize();
+		roundedRectangle = new RoundedRectangle(d); 
 		//this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		helperPanel = new JPanel();
 		helperPanel.setOpaque(false);
@@ -38,7 +40,7 @@ public class LoginPanel extends JPanel implements ComponentListener{
 		// font = bold ... "Futura"
 		// like 20
 		label = new JLabel("Login");
-		
+		label.setFont(new Font("Futura", Font.BOLD, 28));
 		
 //		label.setFont(new Font("Arial", Font.ITALIC,20)); //set font of text
 
@@ -49,7 +51,8 @@ public class LoginPanel extends JPanel implements ComponentListener{
 		//2
 		
 		//button
-		button = new JButton("LOGIN");
+		button = new RoundButton();
+		//button = new JButton("LOGIN");
 		
 		//link
 		link = new LinkButton("Sign Up");
@@ -72,32 +75,23 @@ public class LoginPanel extends JPanel implements ComponentListener{
 				);
 		
 		Dimension d = this.getSize();
-		//Insets insets = this.getInsets(); ?? idk 
-		double w = d.getWidth();
-		double h = d.getHeight();
+		roundedRectangle = new RoundedRectangle(d); 
 		
-		// The rounded rectangle width is 1/3 of the full screen
-		double width = w/3; 
-		// The rounded rectangle height is 66/80 of the full screen
-		double heightRatio = 66.0 / 80;
-		double height = heightRatio * h;
-		// x = the X coordinate to which to set the location of the Rectangle
-		double x = w/3;
-		// y = the Y coordinate to which to set the location of the Rectangle
-		double topGapRatio = 7.0/ 80; 
-		double y = h * topGapRatio;
-		// arcWidth = the width to set the arc of this RoundRectangle2D
-		double arcWidth = 30;
-		// archHeight = the height to which to set the arc of this RoundRectangle2
-		double arcHeight = 30;
-
+		//Insets insets = this.getInsets(); ?? idk 
+		
 		
 		Color c = Color.BLACK;
 		g2.setPaint(c);
 	//	System.out.println( "width = " + width);
 	//	System.out.println(" height = " + height);
 		
-		Shape shape = new RoundRectangle2D.Double(x, y, width, height, arcWidth, arcHeight);
+		Shape shape = new RoundRectangle2D.Double(
+				roundedRectangle.getStartingPointX(), 
+				roundedRectangle.getStartingPointY(), 
+				roundedRectangle.getWidth(),
+				roundedRectangle.getHeight(), 
+				roundedRectangle.getArcWidth(), 
+				roundedRectangle.getArcHeight());
 	//	g2.setPaint(Color.black);
 	//	g2.fill(shape);
 		g2.draw( shape);

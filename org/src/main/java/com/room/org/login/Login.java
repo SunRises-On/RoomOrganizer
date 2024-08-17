@@ -34,8 +34,6 @@ import javax.swing.SwingUtilities;
 public class Login  extends JLayeredPane implements ComponentListener{
 	private Background background;
 	private LoginPanel loginPanel;
-	private JLabel label;
-	private JPanel oval;
 	public Login() {
 		
 		this.setPreferredSize(new Dimension(400,400));
@@ -52,10 +50,7 @@ public class Login  extends JLayeredPane implements ComponentListener{
 		//background.setBounds(new Rectangle(new Point(0,0), background.getPreferredSize()));
 		this.add(background, JLayeredPane.MODAL_LAYER);
 		
-	//	oval = new JPanel();
-	//	oval.setPreferredSize(new Dimension(100,200));
-	//	oval.setBounds(50, 50, 100, 200);
-	//	oval.setBackground(Color.pink);
+
 		loginPanel = new LoginPanel();
 		loginPanel.addComponentListener(this);
 		loginPanel.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
